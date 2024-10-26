@@ -7,18 +7,22 @@ public final class Constants {
 
     public static final String DATABASE_NAME = "Quiz_Game.db";
     public static final int DATABASE_VERSION = 1;
+    public static final String USER_TABLE_NAME = "USER";
+    public static final String QUESTION_TABLE_NAME = "QUESTION";
+    public static final String SCORE_TABLE_NAME = "SCORE";
 
 
 
 
 
-    public static final String createUserTableQuery = "CREATE TABLE USER(" +
+
+    public static final String createUserTableQuery = "CREATE TABLE "+ USER_TABLE_NAME +"(" +
             "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "USER_NAME TEXT," +
             "EMAIL TEXT," +
             "BIRTH_DATE DATE)";
 
-    public static final String createQuestionTableQuery = "CREATE TABLE QUESTION(" +
+    public static final String createQuestionTableQuery = "CREATE TABLE "+ QUESTION_TABLE_NAME +"(" +
             "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "QUESTION TEXT," +
             "OPTION1 TEXT NOT NULL," +
@@ -26,7 +30,7 @@ public final class Constants {
             "OPTION3 TEXT NOT NULL," +
             "CORRECT_ANSWER TEXT)";
 
-    public static final String createScoreTableQuery = "CREATE TABLE SCORE(" +
+    public static final String createScoreTableQuery = "CREATE TABLE "+SCORE_TABLE_NAME+"(" +
             "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "USER_ID INTEGER," +
             "SCORE INTEGER," +
