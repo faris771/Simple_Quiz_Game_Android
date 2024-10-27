@@ -6,23 +6,25 @@ public final class Constants {
     }
 
     public static final String DATABASE_NAME = "Quiz_Game.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2; // Incremented version
     public static final String USER_TABLE_NAME = "USER";
     public static final String QUESTION_TABLE_NAME = "QUESTION";
     public static final String SCORE_TABLE_NAME = "SCORE";
+    public static final String CSV_FILE_NAME = "app/src/main/assets/Questions.csv";
+
+
+    public static final String PREFS_NAME = "com.example.todo2.PREFS";
+    public static final String KEY_QUESTIONS_LOADED = "questionsLoaded";
 
 
 
-
-
-
-    public static final String createUserTableQuery = "CREATE TABLE "+ USER_TABLE_NAME +"(" +
+    public static final String createUserTableQuery = "CREATE TABLE " + USER_TABLE_NAME + "(" +
             "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "USER_NAME TEXT," +
             "EMAIL TEXT," +
             "BIRTH_DATE DATE)";
 
-    public static final String createQuestionTableQuery = "CREATE TABLE "+ QUESTION_TABLE_NAME +"(" +
+    public static final String createQuestionTableQuery = "CREATE TABLE " + QUESTION_TABLE_NAME + "(" +
             "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "QUESTION TEXT," +
             "OPTION1 TEXT NOT NULL," +
@@ -30,17 +32,11 @@ public final class Constants {
             "OPTION3 TEXT NOT NULL," +
             "CORRECT_ANSWER TEXT)";
 
-    public static final String createScoreTableQuery = "CREATE TABLE "+SCORE_TABLE_NAME+"(" +
+    public static final String createScoreTableQuery = "CREATE TABLE " + SCORE_TABLE_NAME + "(" +
             "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "USER_ID INTEGER," +
+            "USER_NAME TEXT," +
             "SCORE INTEGER," +
             "TIME_STAMP TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
             "FOREIGN KEY(USER_ID) REFERENCES USER(ID))";
-
-
-
-
-
-
-
 }

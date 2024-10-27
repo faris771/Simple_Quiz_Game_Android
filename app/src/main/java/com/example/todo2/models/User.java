@@ -1,6 +1,4 @@
-package com.example.todo2;
-
-import java.util.Date;
+package com.example.todo2.models;
 
 public class User {
 

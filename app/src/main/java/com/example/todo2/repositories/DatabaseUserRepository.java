@@ -1,4 +1,4 @@
-        package com.example.todo2;
+        package com.example.todo2.repositories;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-public class DatabaseUserRepository {
+import com.example.todo2.Constants;
+import com.example.todo2.models.DatabaseHelper;
+import com.example.todo2.models.User;
+
+        public class DatabaseUserRepository {
 
     private DatabaseHelper db;
 
@@ -43,4 +47,31 @@ public class DatabaseUserRepository {
             cursor.close();
         }
     }
+
+
+            public boolean doesNicknameExist(String userName) {
+                SQLiteDatabase database = db.getReadableDatabase();
+                String query = "SELECT COUNT(*) FROM " +Constants.SCORE_TABLE_NAME + " WHERE USER_NAME = ?";
+                Cursor cursor = database.rawQuery(query, new String[]{userName});
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    int count = cursor.getInt(0);
+                    cursor.close();
+                    return count > 0;
+                }
+                return false;
+            }
+
+            public void addNicknameToScores(String nickname, int score) {
+                if (!doesNicknameExist(nickname)) {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("nickname", nickname);
+                    contentValues.put("score", score);
+                    db.getWritableDatabase().insert("scores", null, contentValues);
+                } else {
+                    Log.d("Database", "Nickname already exists: " + nickname);
+                }
+            }
+
 }

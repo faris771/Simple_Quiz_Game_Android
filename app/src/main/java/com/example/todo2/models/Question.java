@@ -1,4 +1,4 @@
-package com.example.todo2;
+package com.example.todo2.models;
 
 public class Question {
 

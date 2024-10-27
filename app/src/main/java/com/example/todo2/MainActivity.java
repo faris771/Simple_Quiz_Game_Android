@@ -1,5 +1,6 @@
 package com.example.todo2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,6 +8,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.todo2.models.User;
+import com.example.todo2.repositories.DatabaseUserRepository;
+import com.example.todo2.validators.DateValidator;
+import com.example.todo2.validators.EmailValidator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     saveUser(userName, email, birthDate);
                 }
+
+
             }
         });
     }
@@ -58,7 +66,17 @@ public class MainActivity extends AppCompatActivity {
     private void saveUser(String name, String email, String birthDate) {
         DatabaseUserRepository databaseUserRepository = new DatabaseUserRepository(getApplicationContext());
         User user = new User(name, email, birthDate);
-        databaseUserRepository.saveUserToDatabase(user);
-        Toast.makeText(this, "User saved successfully", Toast.LENGTH_SHORT).show();
+
+        if (!databaseUserRepository.doesNicknameExist(name)) {
+            databaseUserRepository.saveUserToDatabase(user);
+            Toast.makeText(this, "User saved successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Nickname already exists", Toast.LENGTH_SHORT).show();
+        }
+
+//         go to Quiz Activity
+        Intent intent = new Intent(this, QuizActivity.class);
+        startActivity(intent);
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.todo2;
+package com.example.todo2.validators;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,8 +1,10 @@
-package com.example.todo2;
+package com.example.todo2.models;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.todo2.Constants;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
