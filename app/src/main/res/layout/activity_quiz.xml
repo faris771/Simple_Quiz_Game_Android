@@ -2,7 +2,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:gravity="center"
+    android:fontFamily="@font/press_start_2p">
 
     <TextView
         android:id="@+id/gameStatusTextView"
@@ -12,16 +14,31 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="12dp"/>
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/press_start_2p"
+        android:gravity="center"/>
 
     <TextView
-        android:id="@+id/counterTextView"
+        android:id="@+id/questionNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/press_start_2p"
+        android:gravity="center"
+        android:text="Question: 1"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/timerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
-        android:text="Counter: 0"
-        android:textSize="18sp" />
+        android:text="Timer: 10"
+        android:textSize="20sp"
+        android:fontFamily="@font/press_start_2p"
+        android:gravity="center"/>
 
     <TextView
         android:id="@+id/questionTextView"
@@ -29,7 +46,20 @@
         android:layout_height="162dp"
         android:layout_marginBottom="24dp"
         android:text="Question will appear here"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/currentScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/press_start_2p"
+        android:gravity="center"
+        android:text="Score: 0"
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,7 +81,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Option 1" />
+                android:text="Option 1"
+                android:fontFamily="@font/press_start_2p"
+                android:gravity="center"/>
 
             <Button
                 android:id="@+id/optionButton2"
@@ -59,7 +91,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Option 2" />
+                android:text="Option 2"
+                android:fontFamily="@font/press_start_2p"
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -74,7 +108,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Option 3" />
+                android:text="Option 3"
+                android:fontFamily="@font/press_start_2p"
+                android:gravity="center"/>
 
             <Button
                 android:id="@+id/optionButton4"
@@ -82,7 +118,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Option 4" />
+                android:text="Option 4"
+                android:fontFamily="@font/press_start_2p"
+                android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>
 

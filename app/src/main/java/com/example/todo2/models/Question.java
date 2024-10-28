@@ -4,15 +4,18 @@ public class Question {
 
     private int questionId;
     private String question;
-    private String corrrectAnswer;
+    private String correctAnswer;
     private String option1;
     private String option2;
     private String option3;
 
+    public Question() {
+    }
+
     public Question(int questionId, String question, String corrrectAnswer, String option1, String option2, String option3) {
         this.questionId = questionId;
         this.question = question;
-        this.corrrectAnswer = corrrectAnswer;
+        this.correctAnswer = corrrectAnswer;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
@@ -34,12 +37,12 @@ public class Question {
         this.question = question;
     }
 
-    public String getCorrrectAnswer() {
-        return corrrectAnswer;
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
-    public void setCorrrectAnswer(String corrrectAnswer) {
-        this.corrrectAnswer = corrrectAnswer;
+    public void setCorrectAnswer(String corrrectAnswer) {
+        this.correctAnswer = corrrectAnswer;
     }
 
     public String getOption1() {
