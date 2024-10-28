@@ -1,7 +1,11 @@
+// QuizActivity.java
 package com.example.todo2;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.todo2.models.Question;
 import com.example.todo2.repositories.DatabaseQuestionRepository;
+import com.example.todo2.repositories.DatabaseScoreRepository;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,11 +39,14 @@ public class QuizActivity extends AppCompatActivity {
     private Button optionButton4;
 
     private CountDownTimer countDownTimer;
+    private DatabaseScoreRepository scoreRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        scoreRepository = new DatabaseScoreRepository(this);
 
         initializeViews();
         loadQuestions();
@@ -47,27 +55,21 @@ public class QuizActivity extends AppCompatActivity {
         View.OnClickListener optionClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Button selectedButton = (Button) v;
                 String selectedAnswer = selectedButton.getText().toString();
                 Question currentQuestion = questions.get(currentQuestionIndex);
 
                 if (selectedAnswer.equals(currentQuestion.getCorrectAnswer())) {
                     score++;
-                    Toast.makeText(QuizActivity.this, "Correct Answer!", Toast.LENGTH_SHORT).show();
                     selectedButton.setBackgroundColor(Color.GREEN);
                 } else {
                     score = Math.max(0, score - 1);
-                    Toast.makeText(QuizActivity.this, "Incorrect Answer!", Toast.LENGTH_SHORT).show();
                     selectedButton.setBackgroundColor(Color.RED);
                 }
 
-                // Highlight the correct answer
                 highlightCorrectAnswer(currentQuestion.getCorrectAnswer());
-
                 updateScore();
 
-                // Wait for 500 ms before showing the next question
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -78,7 +80,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         };
 
-        setOptionButtonListeners(optionClickListener); // Set the same listener for all option buttons
+        setOptionButtonListeners(optionClickListener);
     }
 
     private void initializeViews() {
@@ -95,12 +97,12 @@ public class QuizActivity extends AppCompatActivity {
 
     private void loadQuestions() {
         DatabaseQuestionRepository repository = new DatabaseQuestionRepository(this);
-        repository.loadQuestionsToDatabase(this);  // This ensures questions are loaded once
+        repository.loadQuestionsToDatabase(this);
         questions = repository.getRandomQuestions(Constants.QUESTIONS_PER_ROUND);
 
         if (questions == null || questions.isEmpty()) {
             Toast.makeText(this, "No questions available", Toast.LENGTH_SHORT).show();
-            finish(); // Close activity if no questions are available
+            finish();
             return;
         }
     }
@@ -116,8 +118,6 @@ public class QuizActivity extends AppCompatActivity {
         if (currentQuestionIndex < questions.size()) {
             Question question = questions.get(currentQuestionIndex);
             questionTextView.setText(question.getQuestion());
-
-            // Update question number text view
             questionNumberTextView.setText("Question: " + (currentQuestionIndex + 1) + "/" + questions.size());
 
             List<String> options = Arrays.asList(
@@ -126,7 +126,7 @@ public class QuizActivity extends AppCompatActivity {
                     question.getOption3(),
                     question.getCorrectAnswer()
             );
-            Collections.shuffle(options); // to make sure correct answer is not always in the same position
+            Collections.shuffle(options);
 
             optionButton1.setText(options.get(0));
             optionButton2.setText(options.get(1));
@@ -135,9 +135,14 @@ public class QuizActivity extends AppCompatActivity {
 
             startTimer();
         } else {
-            // End of quiz
+
+            Log.d("QuizActivity", "Uploading to database");
+
+            storeScoreInDatabase();
             Toast.makeText(this, "Quiz Complete!", Toast.LENGTH_SHORT).show();
-            finish(); // Optionally close activity after quiz is complete
+            Intent intent = new Intent(QuizActivity.this, EndActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
@@ -173,34 +178,37 @@ public class QuizActivity extends AppCompatActivity {
     private void highlightCorrectAnswer(String correctAnswer) {
         if (optionButton1.getText().toString().equals(correctAnswer)) {
             optionButton1.setBackgroundColor(Color.GREEN);
-        } else {
-            optionButton1.setBackgroundColor(Color.RED);
         }
         if (optionButton2.getText().toString().equals(correctAnswer)) {
             optionButton2.setBackgroundColor(Color.GREEN);
-        } else {
-            optionButton2.setBackgroundColor(Color.RED);
         }
         if (optionButton3.getText().toString().equals(correctAnswer)) {
             optionButton3.setBackgroundColor(Color.GREEN);
-        } else {
-            optionButton3.setBackgroundColor(Color.RED);
         }
         if (optionButton4.getText().toString().equals(correctAnswer)) {
             optionButton4.setBackgroundColor(Color.GREEN);
-        } else {
-            optionButton4.setBackgroundColor(Color.RED);
         }
     }
 
     private void resetButtonColors() {
-
-        optionButton1.setBackgroundColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
-        optionButton2.setBackgroundColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
-        optionButton3.setBackgroundColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
-        optionButton4.setBackgroundColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
+        // make them back to normal default color using #ff6750a4
+        optionButton1.setTextColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
+        optionButton2.setTextColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
+        optionButton3.setTextColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
+        optionButton4.setTextColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
 
     }
 
+    private void storeScoreInDatabase() {
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, MODE_PRIVATE);
+        int userId = prefs.getInt("userId", -1);
+        String username = prefs.getString(Constants.USERNAME_SHARED_PREFS_KEY, "");
 
+        if (userId == -1) {
+            Toast.makeText(this, "User not found in preferences", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        scoreRepository.insertScore(userId, username, score);
+    }
 }

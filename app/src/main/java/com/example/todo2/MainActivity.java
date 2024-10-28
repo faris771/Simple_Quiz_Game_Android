@@ -1,6 +1,9 @@
+// MainActivity.java
 package com.example.todo2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -50,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     saveUser(userName, email, birthDate);
                 }
-
-
             }
         });
     }
@@ -69,14 +70,21 @@ public class MainActivity extends AppCompatActivity {
 
         if (!databaseUserRepository.doesNicknameExist(name)) {
             databaseUserRepository.saveUserToDatabase(user);
+            saveUserToPreferences(name);
             Toast.makeText(this, "User saved successfully", Toast.LENGTH_SHORT).show();
+
+            // Go to Quiz Activity
+            Intent intent = new Intent(this, QuizActivity.class);
+            startActivity(intent);
         } else {
-            Toast.makeText(this, "Nickname already exists", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nickname already exists. Please choose a different name.", Toast.LENGTH_SHORT).show();
         }
+    }
 
-//         go to Quiz Activity
-        Intent intent = new Intent(this, QuizActivity.class);
-        startActivity(intent);
-
+    private void saveUserToPreferences(String userName) {
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(Constants.USERNAME_SHARED_PREFS_KEY, userName);
+        editor.apply();
     }
 }

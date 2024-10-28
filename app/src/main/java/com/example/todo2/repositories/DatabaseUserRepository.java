@@ -1,4 +1,4 @@
-        package com.example.todo2.repositories;
+package com.example.todo2.repositories;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,7 +10,7 @@ import com.example.todo2.Constants;
 import com.example.todo2.models.DatabaseHelper;
 import com.example.todo2.models.User;
 
-        public class DatabaseUserRepository {
+public class DatabaseUserRepository {
 
     private DatabaseHelper db;
 
@@ -24,6 +24,7 @@ import com.example.todo2.models.User;
         contentValues.put("EMAIL", user.getEmail());
         contentValues.put("BIRTH_DATE", user.getBirthDate());
         db.getWritableDatabase().insert(Constants.USER_TABLE_NAME, null, contentValues);
+
     }
 
     public void logAllUsers() {
@@ -49,29 +50,29 @@ import com.example.todo2.models.User;
     }
 
 
-            public boolean doesNicknameExist(String userName) {
-                SQLiteDatabase database = db.getReadableDatabase();
-                String query = "SELECT COUNT(*) FROM " +Constants.SCORE_TABLE_NAME + " WHERE USER_NAME = ?";
-                Cursor cursor = database.rawQuery(query, new String[]{userName});
+    public boolean doesNicknameExist(String userName) {
+        SQLiteDatabase database = db.getReadableDatabase();
+        String query = "SELECT COUNT(*) FROM " + Constants.USER_TABLE_NAME + " WHERE USER_NAME = ?";
+        Cursor cursor = database.rawQuery(query, new String[]{userName});
 
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    int count = cursor.getInt(0);
-                    cursor.close();
-                    return count > 0;
-                }
-                return false;
-            }
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int count = cursor.getInt(0);
+            cursor.close();
+            return count > 0;
+        }
+        return false;
+    }
 
-            public void addNicknameToScores(String nickname, int score) {
-                if (!doesNicknameExist(nickname)) {
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put("nickname", nickname);
-                    contentValues.put("score", score);
-                    db.getWritableDatabase().insert("scores", null, contentValues);
-                } else {
-                    Log.d("Database", "Nickname already exists: " + nickname);
-                }
-            }
+    public void addNicknameToScores(String nickname, int score) {
+        if (!doesNicknameExist(nickname)) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("nickname", nickname);
+            contentValues.put("score", score);
+            db.getWritableDatabase().insert("scores", null, contentValues);
+        } else {
+            Log.d("Database", "Nickname already exists: " + nickname);
+        }
+    }
 
 }

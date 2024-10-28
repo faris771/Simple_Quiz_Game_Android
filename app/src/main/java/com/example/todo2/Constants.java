@@ -3,6 +3,8 @@ package com.example.todo2;
 public final class Constants {
 
     private Constants() {
+
+
     }
 
     public static final String DATABASE_NAME = "Quiz_Game.db";
@@ -22,6 +24,7 @@ public final class Constants {
     public static final int QUESTION_COUNTDOWN_INTERVAL = 1000; // 1 second
 
     public static final String BUTTON_DEFAULT_COLOR = "#ff6750a4";
+    public static final String USERNAME_SHARED_PREFS_KEY = "username";
 
 
     public static final String createUserTableQuery = "CREATE TABLE " + USER_TABLE_NAME + "(" +
