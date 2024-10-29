@@ -191,12 +191,11 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void resetButtonColors() {
-        // make them back to normal default color using #ff6750a4
-        optionButton1.setTextColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
-        optionButton2.setTextColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
-        optionButton3.setTextColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
-        optionButton4.setTextColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
-
+        // Reset the background color to the default color
+        optionButton1.setBackgroundColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
+        optionButton2.setBackgroundColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
+        optionButton3.setBackgroundColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
+        optionButton4.setBackgroundColor(Color.parseColor(Constants.BUTTON_DEFAULT_COLOR));
     }
 
     private void storeScoreInDatabase() {
