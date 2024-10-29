@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (!databaseUserRepository.doesNicknameExist(name)) {
             databaseUserRepository.saveUserToDatabase(user);
-            saveUserToPreferences(name);
+            saveUserNameToPreferences(name);
             Toast.makeText(this, "User saved successfully", Toast.LENGTH_SHORT).show();
 
             // Go to Quiz Activity
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void saveUserToPreferences(String userName) {
+    private void saveUserNameToPreferences(String userName) {
         SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(Constants.USERNAME_SHARED_PREFS_KEY, userName);

@@ -58,7 +58,7 @@
         android:ems="10"
         android:fontFamily="@font/press_start_2p"
         android:gravity="center"
-        android:hint="Birth Date (DD/MM/YY)"
+        android:hint="Birth Date (DD/MM/YYYY)"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/startButton"
         app:layout_constraintEnd_toEndOf="parent"

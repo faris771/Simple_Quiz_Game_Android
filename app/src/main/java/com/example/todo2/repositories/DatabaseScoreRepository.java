@@ -65,14 +65,15 @@ public class DatabaseScoreRepository {
     }
 
     public double getAverageScore() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String query = "SELECT AVG(SCORE) FROM " + Constants.SCORE_TABLE_NAME;
-        Cursor cursor = db.rawQuery(query, null);
-        cursor.moveToFirst();
-        double average = cursor.getDouble(0); // 0 is the index of the column
-        cursor.close();
-        return average;
-    }
+
+    SQLiteDatabase db = dbHelper.getReadableDatabase();
+    String query = "SELECT AVG(SCORE) FROM " + Constants.SCORE_TABLE_NAME;
+    Cursor cursor = db.rawQuery(query, null);
+    cursor.moveToFirst();
+    double average = cursor.getDouble(0); // 0 is the index of the column
+    cursor.close();
+    return Math.round(average * 100.0) / 100.0; // round to 2 decimal places
+}
 
     public String getHighestScore() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();

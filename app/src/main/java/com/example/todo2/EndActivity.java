@@ -85,6 +85,9 @@ public class EndActivity extends AppCompatActivity {
     }
 
     private void displayPlayerScores(String username) {
+        username = username.trim();
+        // to lower
+        username = username.toLowerCase();
         List<Integer> scores = scoreRepository.getAllScoresOfPlayer(username);
         StringBuilder playerScoresText = new StringBuilder("Scores of " + username + ":\n");
         for (int score : scores) {

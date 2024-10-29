@@ -13,12 +13,14 @@
         android:text="Top 5 Scores"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:paddingBottom="8dp" />
+        android:paddingBottom="8dp"
+        android:fontFamily="@font/press_start_2p" />
 
     <TextView
         android:id="@+id/top5ScoresResultTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p" />
 
     <TextView
         android:id="@+id/totalPlayersTextView"
@@ -27,21 +29,29 @@
         android:paddingBottom="8dp"
         android:text="Total Players:"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:fontFamily="@font/press_start_2p" />
 
     <EditText
         android:id="@+id/playerNicknameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter player nickname"
-        android:paddingBottom="8dp" />
+        android:paddingBottom="8dp"
+
+        android:fontFamily="@font/press_start_2p"
+        android:inputType="text" />
+
 
     <Button
         android:id="@+id/retrieveScoresButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Retrieve Scores"
-        android:paddingBottom="8dp" />
+        android:layout_gravity="center"
+        android:fontFamily="@font/press_start_2p"
+        android:paddingTop="6dp"
+        android:paddingBottom="8dp"
+        android:text="Retrieve Scores" />
 
     <TextView
         android:id="@+id/playerScoresTextView"
@@ -50,7 +60,8 @@
         android:paddingBottom="8dp"
         android:text="Player Scores:"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:fontFamily="@font/press_start_2p" />
 
     <TextView
         android:id="@+id/averageScoreTextView"
@@ -59,7 +70,8 @@
         android:paddingBottom="8dp"
         android:text="Average Score:"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:fontFamily="@font/press_start_2p" />
 
     <TextView
         android:id="@+id/highestScoreTextView"
@@ -68,12 +80,18 @@
         android:paddingBottom="8dp"
         android:text="Highest Score:"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:fontFamily="@font/press_start_2p" />
 
     <Button
         android:id="@+id/returnToMainActivityButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="250dp"
+        android:fontFamily="@font/press_start_2p"
+        android:insetTop="4dp"
+        android:paddingTop="6dp"
         android:text="Start New Game" />
-
 </LinearLayout>

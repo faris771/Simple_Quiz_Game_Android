@@ -72,7 +72,7 @@ public class QuizActivity extends AppCompatActivity {
                     score++;
                     selectedButton.setBackgroundColor(Color.GREEN);
                 } else {
-                    score = Math.max(0, score - 1);
+                    score = Math.max(0, score - 1); // Prevent negative scores
                     selectedButton.setBackgroundColor(Color.RED);
                 }
 
