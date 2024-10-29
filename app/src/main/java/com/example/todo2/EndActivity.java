@@ -19,6 +19,9 @@ public class EndActivity extends AppCompatActivity {
     private TextView totalPlayersTextView;
     private EditText playerNicknameEditText;
     private Button retrieveScoresButton;
+    private Button returnToMainActivityButton;
+
+
     private TextView playerScoresTextView;
     private TextView averageScoreTextView;
     private TextView highestScoreTextView;
@@ -43,6 +46,17 @@ public class EndActivity extends AppCompatActivity {
                 displayPlayerScores(nickname);
             }
         });
+
+        returnToMainActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // go back to MainActivity
+                finish();
+            }
+        });
+
+
+
     }
 
     private void initializeViews() {
@@ -50,6 +64,7 @@ public class EndActivity extends AppCompatActivity {
         totalPlayersTextView = findViewById(R.id.totalPlayersTextView);
         playerNicknameEditText = findViewById(R.id.playerNicknameEditText);
         retrieveScoresButton = findViewById(R.id.retrieveScoresButton);
+        returnToMainActivityButton = findViewById(R.id.returnToMainActivityButton);
         playerScoresTextView = findViewById(R.id.playerScoresTextView);
         averageScoreTextView = findViewById(R.id.averageScoreTextView);
         highestScoreTextView = findViewById(R.id.highestScoreTextView);

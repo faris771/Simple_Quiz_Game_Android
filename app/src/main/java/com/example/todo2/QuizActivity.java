@@ -151,6 +151,10 @@ public class QuizActivity extends AppCompatActivity {
             Toast.makeText(this, "Quiz Complete!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(QuizActivity.this, EndActivity.class);
             startActivity(intent);
+            // stop timer
+            if (countDownTimer != null) {
+                countDownTimer.cancel();
+            }
             finish();
         }
     }
