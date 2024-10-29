@@ -75,4 +75,21 @@ public class DatabaseUserRepository {
         }
     }
 
+    public int getUserId(String userName) {
+
+        Log.d("DatabaseUserRepository", "Fetching user ID for username: " + userName);
+
+        SQLiteDatabase database = db.getReadableDatabase();
+        String query = "SELECT ID FROM " + Constants.USER_TABLE_NAME + " WHERE USER_NAME = ?";
+        Cursor cursor = database.rawQuery(query, new String[]{userName});
+
+        int userId = -1;
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                userId = cursor.getInt(0);
+            }
+            cursor.close();
+        }
+        return userId;
+    }
 }

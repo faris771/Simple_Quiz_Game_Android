@@ -1,6 +1,7 @@
 // QuizActivity.java
 package com.example.todo2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.todo2.models.Question;
 import com.example.todo2.repositories.DatabaseQuestionRepository;
 import com.example.todo2.repositories.DatabaseScoreRepository;
+import com.example.todo2.repositories.DatabaseUserRepository;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -40,6 +42,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private CountDownTimer countDownTimer;
     private DatabaseScoreRepository scoreRepository;
+    private DatabaseUserRepository userRepository;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,12 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         scoreRepository = new DatabaseScoreRepository(this);
+        userRepository = new DatabaseUserRepository(this);
+        String loggedInUser = getUserNameFromPreferences();
 
+
+        saveUserIdToPreferences(loggedInUser);
+        //
         initializeViews();
         loadQuestions();
         showQuestion();
@@ -210,4 +219,32 @@ public class QuizActivity extends AppCompatActivity {
 
         scoreRepository.insertScore(userId, username, score);
     }
+
+    private void saveUserIdToPreferences(String userName) {
+
+
+        int userId = userRepository.getUserId(userName);
+        if (userId == -1) {
+            Toast.makeText(this, "User not found in database", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Log.d("QuizActivity", "User ID: " + userId);
+
+        // Save the user ID to SharedPreferences
+
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("userId", userId);
+        editor.apply();
+
+        Log.d("QuizActivity", "User ID saved to preferences" + userId);
+    }
+
+
+    public String getUserNameFromPreferences() {
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getString(Constants.USERNAME_SHARED_PREFS_KEY, null);
+    }
+
 }
